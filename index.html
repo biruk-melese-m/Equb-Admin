@@ -1,0 +1,139 @@
+<!doctype html>
+<!-- ==========================================================================
+     EQUB (እቁብ) OPERATIONS DESK — MASTER WEB ADMIN PORTAL
+     Single-Page Application (SPA) for Traditional Savings Circle Management
+     Compatible with Supabase PostgreSQL Backend & Kotlin Android Mobile Client
+     ========================================================================== -->
+<html lang="en">
+<head>
+  <!-- Character Encoding & Responsive Viewport -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="description" content="Equb Admin — High-performance operations workspace for community savings circles." />
+  
+  <!-- Mobile Status Bar & Browser Accent Theming -->
+  <meta name="theme-color" content="#192f40" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Equb Admin Page</title>
+
+  <!-- External Typography & Icon CDNs -->
+  <!-- Flaticon UIcons: Vector icon set for operational UI -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css" />
+  
+  <!-- Core Design System & Component Stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=2.4" />
+
+  <!-- Supabase JS Client Library (V2 Official) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Canvas Confetti Library (Used for Lottery Draw Celebrations) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <!-- Mobile Sidebar Backdrop (Closes drawer on backdrop tap) -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- Primary Application Wrapper -->
+  <div class="app">
+    <!-- ======================================================================
+         DESKTOP SIDEBAR NAVIGATION
+         ====================================================================== -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Brand Logo & Workspace Identity -->
+      <div class="brand" data-view="overview" style="cursor:pointer;" title="Return to Overview Dashboard">
+        <div class="brand-mark"><i class="fi fi-sr-shield-check"></i></div>
+        <div>
+          <strong>Equb Admin</strong>
+          <small>Operations desk</small>
+        </div>
+      </div>
+
+      <!-- Navigation Container (Populated dynamically by app.js) -->
+      <nav class="nav" id="nav" style="display:none;"></nav>
+
+      <!-- Supabase System Status & Connection Heartbeat Indicator -->
+      <div class="system-status">
+        <div class="status-head">
+          <span id="systemStatusLabel">System status</span>
+          <i class="online-dot" id="systemStatusDot"></i>
+        </div>
+        <p id="systemStatusDesc">Connecting to Supabase...</p>
+        <small id="systemStatusTime">Auto-sync active</small>
+      </div>
+
+      <!-- Sidebar Settings Shortcut -->
+      <div class="nav" style="padding-bottom:13px">
+        <button data-view="settings">
+          <span class="nav-icon"><i class="fi fi-rr-settings-sliders"></i></span>Settings
+        </button>
+      </div>
+    </aside>
+
+    <!-- ======================================================================
+         MAIN CONTENT AREA
+         ====================================================================== -->
+    <main class="main">
+      <!-- Topbar Header (Branding, Hamburger Menu, Page Title & Quick Action Buttons) -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <!-- Sidebar Drawer Trigger (hamburger) -->
+          <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation sidebar">
+            <i class="fi fi-rr-menu-burger"></i>
+          </button>
+          
+          <!-- Mobile Brand Display -->
+          <div class="mobile-brand">
+            <strong>Equb Admin</strong>
+            <small>OPERATIONS DESK</small>
+          </div>
+          
+          <!-- Dynamic Top Page Title -->
+          <div class="page-title-header" id="topPageTitle">Equb Operations Desk</div>
+        </div>
+
+        <!-- Desktop & Mobile Topbar Action Triggers -->
+        <div class="top-actions">
+          <button class="btn" data-modal="member" title="Add New Member">
+            <i class="fi fi-rr-user-add"></i> <span>Add member</span>
+          </button>
+          <button class="btn" data-modal="payment" title="Submit Bank Payment Slip">
+            <i class="fi fi-rr-receipt"></i> <span>Submit payment</span>
+          </button>
+          <button class="btn primary" data-modal="equb" title="Create New Equb Savings Circle">
+            <i class="fi fi-rr-plus-circle"></i> <span>Create Equb</span>
+          </button>
+          <button class="btn icon" data-action="announcement" aria-label="Announcements" title="Broadcast Announcement">
+            <i class="fi fi-rr-bullhorn"></i>
+          </button>
+          <button class="btn icon mobile-bell-btn flaticon-bell-btn" data-action="refresh" aria-label="Refresh Data" title="Synchronize Data">
+            <i class="fi fi-rr-bell"></i>
+          </button>
+          <button class="btn primary mobile-action-btn" data-modal="quick-actions" aria-label="Quick Actions">
+            <i class="fi fi-rr-apps"></i> <span>Action</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic View Container (Injected by app.js router) -->
+      <div class="content" id="content">
+        <div class="loading">
+          <div class="spinner"></div> Loading Equb Operations Workspace...
+        </div>
+      </div>
+    </main>
+
+    <!-- ======================================================================
+         MOBILE BOTTOM NAVIGATION BAR (Thumb-friendly tab switching)
+         ====================================================================== -->
+    <nav class="mobile-bottom-bar" id="mobileBottomBar"></nav>
+  </div>
+
+  <!-- Global Modal Layer & Toast Notification Elements -->
+  <div class="modal-backdrop" id="modalLayer" hidden></div>
+  <div class="toast" id="toast" hidden></div>
+
+  <!-- Realtime Backend SDK and Application Logic Engine -->
+  <script src="app.js?v=2.4"></script>
+</body>
+</html>
